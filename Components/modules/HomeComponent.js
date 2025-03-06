@@ -1,8 +1,8 @@
+import Link from 'next/link'
 import React from 'react'
 
 export default function HomeComponent({title, img, price,meterage,roomCount, id}) {
 
-console.log(title, img, price,meterage,roomCount, id)
 
 
   return (
@@ -21,7 +21,7 @@ console.log(title, img, price,meterage,roomCount, id)
       <svg className="card__icon">
         <use xlinkHref="img/sprite.svg#icon-profile-male"></use>
       </svg>
-      <p className="card__text">{roomCount}</p>
+      <p className="card__text">تعداد اتاق ها : {roomCount}</p>
 
       <svg className="card__icon">
         <use xlinkHref="img/sprite.svg#icon-expand"></use>
@@ -31,12 +31,12 @@ console.log(title, img, price,meterage,roomCount, id)
       <svg className="card__icon">
         <use xlinkHref="img/sprite.svg#icon-key"></use>
       </svg>
-      <p className="card__text">{price}</p>
+      <p className="card__text">{price} میلیون تومان</p>
     </div>
 
-    <a href="singleHouse.html" className="btn btn-brown btn-card">
+    <Link href={`/homes/${id}`} className="btn btn-brown btn-card">
       مشاهده ملک
-    </a>
+    </Link>
   </div>
   )
 }

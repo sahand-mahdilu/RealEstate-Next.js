@@ -8,7 +8,6 @@ export default function Homes() {
     const {homes}= db
 
 
-    console.log(homes);
 
   return (
     <div className="homes">
