@@ -26,7 +26,7 @@ export default function HomeComponent({title, img, price,meterage,roomCount, id}
       <svg className="card__icon">
         <use xlinkHref="img/sprite.svg#icon-expand"></use>
       </svg>
-      <p className="card__text">{meterage}</p>
+      <p className="card__text">{meterage} متر مربع</p>
 
       <svg className="card__icon">
         <use xlinkHref="img/sprite.svg#icon-key"></use>

@@ -43,6 +43,7 @@ export default function HomesPage() {
       }
       break;
       default :{
+        setHomes([...db.homes])
 
       }
     }
