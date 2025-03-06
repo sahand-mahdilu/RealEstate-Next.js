@@ -45,40 +45,31 @@ export default function HomesPage() {
     }
   }, [sort]);
 
-  const paginateHandler = (event,page)=>{
-
-    event.preventDefault()
+  const paginateHandler = (event, page) => {
+    event.preventDefault();
 
     console.log(page);
 
-    const endIndex = 6*page
-    const startIndex= endIndex - 6
+    const endIndex = 6 * page;
+    const startIndex = endIndex - 6;
 
-    const paginateHomes = db.homes.slice(startIndex,endIndex)
+    const paginateHomes = db.homes.slice(startIndex, endIndex);
 
-
-    setHomes(paginateHomes)
-
-
-
-
-
-  }
+    setHomes(paginateHomes);
+  };
 
   return (
-    <div class="home-section" id="houses">
-      <div class="home-filter-search">
-        <div class="home-filter">
+    <div className="home-section" id="houses">
+      <div className="home-filter-search">
+        <div className="home-filter">
           <select defaultValue={sort} onChange={(e) => setSort(e.target.value)}>
-            <option value="-1" selected>
-              انتخاب کنید
-            </option>
+            <option value="-1">انتخاب کنید</option>
             <option value="price">بر اساس قیمت</option>
             <option value="roomCount">بر اساس تعداد اتاق</option>
             <option value="meterage">بر اساس اندازه</option>
           </select>
         </div>
-        <div class="home-search">
+        <div className="home-search">
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -87,9 +78,9 @@ export default function HomesPage() {
           />
         </div>
       </div>
-      <div class="homes">
+      <div className="homes">
         {homes.length > 0 ? (
-          homes.slice(0,6).map((home) => {
+          homes.slice(0, 6).map((home) => {
             return <HomeComponent key={home.id} {...home} />;
           })
         ) : (
@@ -98,12 +89,16 @@ export default function HomesPage() {
           </h1>
         )}
       </div>
-      <ul class="pagination__list">
+      <ul className="pagination__list">
         {Array.from({ length: Math.ceil(db.homes.length / 6) }).map(
           (item, index) => {
             return (
-              <li  key={index + 1} onClick={(event)=>paginateHandler(event,index +1)} class="pagination__item">
-                <a href="#" class="">
+              <li
+                key={index + 1}
+                onClick={(event) => paginateHandler(event, index + 1)}
+                className="pagination__item"
+              >
+                <a href="#" className="">
                   {index + 1}
                 </a>
               </li>
