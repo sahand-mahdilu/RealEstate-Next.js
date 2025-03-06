@@ -6,6 +6,7 @@ export default function HomesPage() {
   const [search, setSearch] = useState("");
   const [homes, setHomes] = useState([...db.homes]);
   const [sort, setSort] = useState("-1");
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     const newHome = db.homes.filter((h) => h.title.includes(search));
@@ -15,43 +16,54 @@ export default function HomesPage() {
     console.log();
   }, [search]);
 
-  useEffect(()=>{
+  useEffect(() => {
+    switch (sort) {
+      case "price":
+        {
+          const newHomes = [...homes].sort((a, b) => a.price - b.price);
 
+          setHomes(newHomes);
+        }
+        break;
+      case "roomCount":
+        {
+          const newHomes = [...homes].sort((a, b) => a.roomCount - b.roomCount);
 
-    switch(sort){
-      case "price":{
+          setHomes(newHomes);
+        }
+        break;
+      case "meterage":
+        {
+          const newHomes = [...homes].sort((a, b) => a.meterage - b.meterage);
 
-        const newHomes = [...homes].sort((a,b)=> a.price - b.price)
-
-        setHomes(newHomes)
-
-      }
-      break;
-      case "roomCount":{
-        const newHomes = [...homes].sort((a,b)=> a.roomCount - b.roomCount)
-
-        setHomes(newHomes)
-
-      }
-      break;
-      case "meterage":{
-
-        const newHomes = [...homes].sort((a,b)=> a.meterage - b.meterage)
-
-        setHomes(newHomes)
-
-      }
-      break;
-      default :{
-        setHomes([...db.homes])
-
+          setHomes(newHomes);
+        }
+        break;
+      default: {
+        setHomes([...db.homes]);
       }
     }
-   
+  }, [sort]);
+
+  const paginateHandler = (event,page)=>{
+
+    event.preventDefault()
+
+    console.log(page);
+
+    const endIndex = 6*page
+    const startIndex= endIndex - 6
+
+    const paginateHomes = db.homes.slice(startIndex,endIndex)
+
+
+    setHomes(paginateHomes)
 
 
 
-  },[sort])
+
+
+  }
 
   return (
     <div class="home-section" id="houses">
@@ -77,7 +89,7 @@ export default function HomesPage() {
       </div>
       <div class="homes">
         {homes.length > 0 ? (
-          homes.map((home) => {
+          homes.slice(0,6).map((home) => {
             return <HomeComponent key={home.id} {...home} />;
           })
         ) : (
@@ -87,21 +99,17 @@ export default function HomesPage() {
         )}
       </div>
       <ul class="pagination__list">
-        <li class="pagination__item">
-          <a href="#" class="">
-            {" "}
-          </a>
-        </li>
-        <li class="pagination__item">
-          <a href="#" class="">
-            2
-          </a>
-        </li>
-        <li class="pagination__item active">
-          <a href="#" class="">
-            1
-          </a>
-        </li>
+        {Array.from({ length: Math.ceil(db.homes.length / 6) }).map(
+          (item, index) => {
+            return (
+              <li  key={index + 1} onClick={(event)=>paginateHandler(event,index +1)} class="pagination__item">
+                <a href="#" class="">
+                  {index + 1}
+                </a>
+              </li>
+            );
+          }
+        )}
       </ul>
     </div>
   );
