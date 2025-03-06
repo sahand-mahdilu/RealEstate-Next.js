@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Geist, Geist_Mono } from "next/font/google";
+import Features from "@/Components/template/index/Features";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,6 +14,6 @@ const geistMono = Geist_Mono({
 
 export default function Home() {
   return (
-   <h1 className="bg-red-500">hello</h1>
+<Features/>
   )
 }
